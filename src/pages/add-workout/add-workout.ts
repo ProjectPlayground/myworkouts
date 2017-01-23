@@ -18,14 +18,13 @@ export class AddWorkoutPage {
   public result: any;
   public othersInput: String;
   public orderForm: any;
-  public othersChosen: boolean;
 
   constructor(public navCtrl: NavController, private workoutService: WorkoutService, private formBuilder: FormBuilder) {
     this.orderForm = this.formBuilder.group({
       "title":["",Validators.required],
       "note": ["", Validators.required],
       "type": ["", Validators.required],
-      "othersInput": ["", Validators.required]
+      "othersInput": [""]
       //"address": ["",Validators.required]
     });
   }
