@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Validators, FormBuilder } from '@angular/forms';
 
 import { NavController } from 'ionic-angular';
 
@@ -15,22 +16,37 @@ export class AddWorkoutPage {
   public note: String;
   public type: String;
   public result: any;
+  public othersInput: String;
+  public orderForm: any;
+  public othersChosen: boolean;
 
-  constructor(public navCtrl: NavController, private workoutService: WorkoutService) {
+  constructor(public navCtrl: NavController, private workoutService: WorkoutService, private formBuilder: FormBuilder) {
+    this.orderForm = this.formBuilder.group({
+      "title":["",Validators.required],
+      "note": ["", Validators.required],
+      "type": ["", Validators.required],
+      "othersInput": ["", Validators.required]
+      //"address": ["",Validators.required]
+    });
   }
 
   onSubmit() {
     var workout = {
-        title: this.title,
-        note: this.note,
-        type: this.type
+        title: this.orderForm.value.title,
+        note: this.orderForm.value.note,
+        type: this.orderForm.value.type
     }
 
+    if(this.orderForm.value.othersInput) {
+      workout.type = this.orderForm.value.othersInput;
+    }
     // Add workout
     this.workoutService.addWorkout(workout).subscribe(data => {
         this.result = data;
         console.log('result:' + this.result);
         this.navCtrl.push(WorkoutsPage);
+        this.orderForm.reset();
+
     });
     // this.workoutService.addWorkout(workout)
     //   .then(data => {
@@ -38,8 +54,7 @@ export class AddWorkoutPage {
     //     this.navCtrl.push(WorkoutsPage);
     //   });
     
-
-    
   }
+
 
 }

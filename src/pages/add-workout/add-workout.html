@@ -7,19 +7,19 @@
 </ion-header>
 
 <ion-content padding>
-    <form (submit)="onSubmit()">
+    <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
         <ion-list>
             <ion-item>
                 <ion-label fixed>Title</ion-label>
-                <ion-input [(ngModel)]="title" name="title" type="text"></ion-input>
+                <ion-input name="title" type="text" formControlName="title"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label fixed>Note</ion-label>
-                <ion-input [(ngModel)]="note" name="note" type="textarea"></ion-input>
+                <ion-input formControlName="note" name="note" type="textarea" clearInput></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label fixed>Type</ion-label>
-                <ion-select [(ngModel)]="type" name="type">
+                <ion-select formControlName="type" [(ngModel)]="type" name="type">
                     <ion-option value="Jogging">
                         Jogging
                     </ion-option>
@@ -35,12 +35,17 @@
                     <ion-option value="Aerobicss">
                         Aerobicss
                     </ion-option>
-
+                    <ion-option value="Others">
+                        Others
+                    </ion-option>
                 </ion-select>
             </ion-item>
-
+            <ion-item *ngIf="type == 'Others'">
+                <ion-label>Detail</ion-label>
+                <ion-input type="text" formControlName="othersInput" name="othersInput"></ion-input>
+            </ion-item>
             <ion-item>
-                <button ion-button type="submit" block>Add Workout</button>
+                <button ion-button type="submit" [disabled]="!orderForm.valid" block>Add Workout</button>
             </ion-item>
         </ion-list>
     </form>

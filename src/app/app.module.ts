@@ -9,7 +9,6 @@ import {WorkoutsPage} from '../pages/workouts/workouts';
 import {AddWorkoutPage} from '../pages/add-workout/add-workout';
 import { WorkoutDetailsPage } from '../pages/workout-details/workout-details';
 
-
 @NgModule({
   declarations: [
     MyApp,
